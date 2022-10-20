@@ -5,12 +5,15 @@ const regEx = /\S+@\S+\.\S+/;
 
 const inputEmail = document.querySelector(`input[type='email']`);
 const inputPassword = document.querySelector(`input[type='password']`);
-const inputRadio = document.querySelector(`input[type='radio']`);
+const inputRadio = document.querySelector(`input[type='checkbox']`);
 
 document.addEventListener("DOMContentLoaded", () => {
   inputEmail.value = localStorage.getItem("email");
   inputPassword.value = localStorage.getItem("password");
+  inputRadio.checked = localStorage.getItem("radio");
 });
+
+inputRadio.addEventListener("change", rememberMe);
 
 btnLoginNow.addEventListener("click", () => {
   const valueArr = [];
@@ -25,7 +28,8 @@ btnLoginNow.addEventListener("click", () => {
   if (valueArr.length === input.length) {
     if (!validationEmail(inputEmail.value)) {
       inputError("The email is incorrect", textElement);
-    } else if (inputPassword.value < 6) {
+    }
+    else if (inputPassword.value > 6) {
       inputError("The password must be more than 6 characters", textElement);
     } else {
       inputSuccessfully(textElement);
@@ -62,5 +66,8 @@ function rememberMe() {
   if (inputRadio.checked) {
     localStorage.setItem("email", inputEmail.value);
     localStorage.setItem("password", inputPassword.value);
+    localStorage.setItem("radio", inputRadio.checked);
+  } else {
+    localStorage.clear();
   }
 }
