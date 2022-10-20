@@ -17,11 +17,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   inputEmail.value = localStorage.getItem("email");
   inputPassword.value = localStorage.getItem("password");
+  inputRadio.checked = localStorage.getItem("radio");
 });
 ```
 **inputEmail.value** - значение полученное из input c емайлом.
 
 **inputPassword.value** - значение полученное из input с паролем.
+
+**inputRadio.checked** - значение полученное из input checkox. 
 
 Событие **DOMContentLoaded** срабатывает тогда, когда произошло построение DOM. Использую именно его, а не **load**, потому что мне не важно загрузились
 ли например картинки. 
@@ -35,11 +38,22 @@ function rememberMe() {
   if (inputRadio.checked) {
     localStorage.setItem("email", inputEmail.value);
     localStorage.setItem("password", inputPassword.value);
+    localStorage.setItem("radio", inputRadio.checked);
+  } else {
+    localStorage.clear();
   }
 }
 ``` 
 
 **inputRadio.checked** - проверяю, если нажата ли кнопка *Remember me*, если да, то сохраняю значение. 
+
+```
+ else {
+    localStorage.clear();
+  }
+``` 
+
+Если **inputRadio.checked** false, значит нужно очистить **localStorage**.
 
 2. Валидация email.
 
